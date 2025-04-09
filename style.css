@@ -4,7 +4,9 @@
     --accent-color: #5941A9;
     --base-color:white;
     --text-color:black;
+    --alt-text-color: #514f59;
     --input-color: #E5D4ED;
+    --input-focus-text-color: #1d1128;
 }
 
 * {
@@ -53,7 +55,97 @@ form {
     flex-direction: column;
     margin-top: 20px;
     margin-bottom: 50px;
-    gap: 10px;
     width: min(400px, 100%);
     align-items: center;
+}
+
+form br {
+    margin: 10px;
+}
+
+form > div {
+    display: flex;
+    justify-content: center;
+    width: 100%
+}
+
+form label {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+    fill: var(--base-color);
+    background-color: var(--accent-color);
+    display: flex;
+    width: 50px;
+    flex-shrink: 0;
+    border-radius: 10px 0 0 10px;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+form .forgot-password {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 100;
+    font: inherit;
+    color: var(--alt-text-color);
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    text-align: right;
+}
+
+form .forgot-password:hover {
+    color: var(--alt-text-color);
+}
+
+form input {
+    box-sizing: border-box;
+    flex-grow: 1;
+    min-width: 0;
+    height: 50px;
+    padding: 1em;
+    width: 100%;
+    font: inherit;
+    border-radius: 0 10px 10px 0;
+    border: 2px solid var(--accent-color);
+    background-color: var(--base-color);
+    transition: all 0.3s ease-in-out;
+}
+
+form input:focus {
+    outline: none;
+    background-color: var(--input-color);
+}
+
+form input:hover {
+    background-color: var(--input-color);
+}
+
+div:has(input:focus) > label {
+    background-color: var(--input-focus-text-color);
+}
+
+form input::placeholder {
+    color: var(--text-color);
+}
+
+form button {
+    margin-top: 10px;
+    border: none;
+    border-radius: 1000px; 
+    background-color: var(--accent-color);
+    padding: .85em 4em;
+    font: inherit;
+    font-weight: 600;
+    margin: 30px;
+    color: var(--base-color);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+}
+
+form button:hover {
+    background-color: var(--input-focus-text-color);
+    color: var(--base-color);
 }
