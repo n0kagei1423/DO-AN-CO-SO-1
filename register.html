@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manager - Login</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" src="validation.js">
 </head>
 <body>
     <div class="wrapper">
         <h1>Register</h1>
         <form>
-            <div>
+            <div class="incorrect">
                 <label for="email">
                     <img src="assets/icons/user.svg" alt="usr" class="usr" height="24px">
                 </label>
@@ -19,7 +19,7 @@
             <br>
             <div>
                 <label for="username">
-                    <img src="assets/icons/user.svg" alt="usr" class="usr" height="24px">
+                    @
                 </label>
                 <input type="text" id="username" name="username" placeholder="Username" required>
             </div>
@@ -40,7 +40,7 @@
             <div>
                 <button type="submit" class="register-btn">register</button>
             </div>
-            <div>
+            <div class="ask">
                 <p>Already have an account? <a href="login.html">Login</a></p>
             </div>
         </form>
