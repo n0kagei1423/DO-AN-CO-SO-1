@@ -205,3 +205,10 @@ form div.incorrect input {
     border: 2px solid red;
     background-color: var(--base-color);
 }
+
+#error-message {
+    color: red;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
