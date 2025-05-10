@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manager - Login</title>
     <link rel="stylesheet" href="style.css">
-    <script type="text/javascript" src="validation.js"></script>
 </head>
 <body>
     <div class="wrapper">
         <h1>Register</h1>
         <p id="error-message"></p>
-        <form novalidate method="post" action="./app.js">
+        <form novalidate >
             <div>
                 <label for="email">
                     <img src="assets/icons/user.svg" alt="email" class="email" height="24px">
@@ -40,7 +39,7 @@
                 <input type="password" id="re-password" name="re-password" placeholder="Confirm password" required>
             </div>
             <div>
-                <button type="submit" class="register-btn">register</button>
+                <button type="submit" class="register-btn" onclick="getSignupFormErrors()">register</button>
             </div>
             <div class="ask">
                 <p>Already have an account? <a href="login.html">Login</a></p>
@@ -48,4 +47,5 @@
         </form>
     </div>
 </body>
+<script type="text/javascript" src="validation.js" defer></script>
 </html>
