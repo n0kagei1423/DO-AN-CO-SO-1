@@ -1,14 +1,27 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import styles from "./styles.module.css";
+import styles from "../styles.module.css";
 
 import user from "../../assets/icons/user.svg";
 import password from "../../assets/icons/password.svg";
+import eye from "../../assets/icons/eye.svg";
 
 const Login = () => {
 	const [data, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
+
+    const [type, setType] = useState('password');
+
+    const handleToggle = () => {
+		if (type==='password'){
+			setType('text')
+			return false
+		} else {
+			setType('password')
+			return true
+		}
+	}
 
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
@@ -72,8 +85,17 @@ const Login = () => {
                         
                     />
                     </label>
+                    <span>
+						<img
+							src={eye }
+							alt="eye"
+							className={styles.eye}
+							height="24px"
+							onClick={handleToggle}
+						/>
+					</span>
                     <input
-                        type="password"
+                        type={type}
                         name="password"
                         placeholder="Password"
                         required

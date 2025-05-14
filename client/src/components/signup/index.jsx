@@ -1,10 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "./styles.module.css";
+import styles from "../styles.module.css";
 
 import user from "../../assets/icons/user.svg";
-import password from "../../assets/icons/password.svg";
+import pass from "../../assets/icons/password.svg";
+
+import eyeOff from "../../assets/icons/eye-slash.svg";
+import eye from "../../assets/icons/eye.svg";
 
 const Signup = () => {
 	const [data, setData] = useState({
@@ -13,13 +16,24 @@ const Signup = () => {
 		password: "",
 	});
 
-	const [confirmPassword] = useState('')
+	const [type, setType] = useState('password');
+
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
 
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
 	};
+
+	const handleToggle = () => {
+		if (type==='password'){
+			setType('text')
+			return false
+		} else {
+			setType('password')
+			return true
+		}
+	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -38,28 +52,6 @@ const Signup = () => {
 			}
 		}
 	};
-
-	// const checkPassword = (rule, value, callback) => {
-	// 	if (value && value !== form.getFieldValue('Password')) {
-	// 		callback("The passwords don't match");
-	// 	} else {
-	// 		callback();
-	// 	}
-	// };
-
-	// const  { touched  } = formState;
-
-	// const onVerifyNewPassword = () => {
-	// 	if(touched.newpassword === true && touched.confirmpassword === true){
-	// 		if(newpassword !== confirmpassword){
-	// 			console.log('The passwords dont match')
-	// 			return
-	// 		}else{
-	// 			console.log('Ok.')
-	// 		}
-	// 	}
-  	// }
-
 
 	return (
 		<>
@@ -109,14 +101,23 @@ const Signup = () => {
 				<div>
 					<label htmlFor="password">
 					<img
-						src={password}
+						src={pass}
 						alt="password"
 						className="password"
 						height="24px"
 					/>
 					</label>
+					<span>
+						<img
+							src={eye }
+							alt="eye"
+							className={styles.eye}
+							height="24px"
+							onClick={handleToggle}
+						/>
+					</span>
 					<input
-						type="password"
+						type={type}
 						id="password"
 						name="password"
 						placeholder="Password"
@@ -127,26 +128,6 @@ const Signup = () => {
 					/>
 				</div>
 				<br />
-				<div>
-					<label htmlFor="re-password">
-					<img
-						src={password}
-						alt="re-password"
-						className="re-password"
-						height="24px"
-					/>
-					</label>
-					<input
-						type="password"
-						id="re-password"
-						name="re-password"
-						placeholder="Confirm password"
-						required
-						onChange={handleChange}
-						value={data.password}
-						className={styles.input}
-					/>
-				</div>
 				<div>
 					<button type="submit">
 						register
