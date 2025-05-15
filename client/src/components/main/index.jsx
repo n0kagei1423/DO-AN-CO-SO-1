@@ -7,14 +7,19 @@ const Main = () => {
 	};
 
 	return (
-		<div className={styles.main_container}>
-			<nav className={styles.navbar}>
-				<h1>fakebook</h1>
-				<button className={styles.white_btn} onClick={handleLogout}>
-					Logout
-				</button>
-			</nav>
-		</div>
+		<>
+			<div className={styles.wrapper}>
+				<nav className={styles.navbar}>
+					<h1>PassX</h1>
+					<button className={styles.white_btn} onClick={handleLogout}>
+						Logout
+					</button>
+					<button className={styles.new_btn}>
+						+ New
+					</button>
+				</nav>
+			</div>
+		</>
 	);
 };
 
