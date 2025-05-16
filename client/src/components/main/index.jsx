@@ -1,7 +1,7 @@
 import styles from "./styles.module.css";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, resolvePath, useNavigate } from "react-router-dom";
 
 const Main = () => {
 	const handleLogout = () => {
@@ -30,6 +30,9 @@ const Main = () => {
 	};
 
 	const [error, setError] = useState("");
+	const [notification, setNotification] = useState("");
+
+	const ref = useRef(null);
 
 	const handleNew = async (e) => {
 		e.preventDefault();
@@ -37,6 +40,18 @@ const Main = () => {
 			const url = "http://localhost:5000/api/addPassword";
 			const { data: res } = await axios.post(url, data);
 			console.log(res.message);
+			setData({
+				userEmail: localStorage.getItem("token"),
+				passwords: {
+					title: "",
+					username: "",
+					password: "",
+					url: ""
+				},
+			});
+			setError("");
+			setNotification("Password added/updated successfully!"); // Show notification
+            setTimeout(() => setNotification(""), 2500);
 		} catch (error) {
 			if (
 				error.response &&
@@ -45,15 +60,22 @@ const Main = () => {
 			) {
 				setError(error.response.data.message);
 			}
-		}
-		
+		}	
 	};
 
-	const ref = useRef();
-
 	const [showPopup, setShowPopup] = useState(false);
+	const [popupClosing, setPopupClosing] = useState(false);
+
 	const togglePopup = () => {
-		setShowPopup(!showPopup);
+		if (showPopup) {
+            setPopupClosing(true);
+            setTimeout(() => {
+                setShowPopup(false);
+                setPopupClosing(false);
+            }, 300); // Duration matches CSS animation
+        } else {
+            setShowPopup(true);
+        }
 	};
 
 	function useOnClickOutside(ref, handler) {
@@ -76,7 +98,9 @@ const Main = () => {
 		);
 	}
 
-	useOnClickOutside(ref, () => setShowPopup(false));
+	useOnClickOutside(ref, () => {
+        if (showPopup) togglePopup();
+    });
 
 	return (
 		<>
@@ -94,8 +118,11 @@ const Main = () => {
 				</div>
 				<div className={styles.content}>
 					<h1>Welcome, {localStorage.getItem("token")}</h1>
+					{notification && (
+                        <div className={styles.notification}>{notification}</div>
+                    )}
 					{showPopup && (
-						<div ref={ref} className={styles.popup}>
+						<div ref={ref} className={`${styles.popup} ${popupClosing ? styles.popupClosing : ""}`}>
 							<div className={styles.close} onClick={togglePopup}>x</div>
 							<h2>New Item</h2>
 							<form noValidate method="post" onSubmit={handleNew}>

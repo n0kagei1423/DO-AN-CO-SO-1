@@ -165,8 +165,18 @@ body {
 	justify-content: center;
 	padding-top: 50px;
 	box-shadow: 0 0 200px rgba(0, 0, 0, 0.8);
-	transition: 0.3s all ease-in-out;
 	animation: popup 0.5s;
+	transition: opacity 0.3s, transform 0.3s;
+    opacity: 1;
+}
+
+.popupClosing {
+	top: 50%;
+	left: 50%;
+    opacity: 0;
+    transform: scale(0.9);
+    pointer-events: none;
+	transform: translate(-50%, -50%);
 }
 
 .popup h2 {
@@ -182,6 +192,21 @@ body {
 	margin-top: 10px;
 	font-size: 25px;
 	cursor: pointer;
+}
+
+.notification {
+    background: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    text-align: center;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes popup {

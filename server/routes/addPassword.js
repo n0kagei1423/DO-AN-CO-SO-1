@@ -35,7 +35,6 @@ router.post('/', async (req, res) => {
         );
 
         if (!result) {
-            // If not found, push new password entry
             await Passwords.findOneAndUpdate(
                 { userEmail: req.body.userEmail },
                 {
