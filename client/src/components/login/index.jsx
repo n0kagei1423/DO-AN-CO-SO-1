@@ -10,8 +10,7 @@ import eye from "../../assets/icons/eye.svg";
 const Login = () => {
 	const [data, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
-
-    const [type, setType] = useState('password');
+    const [type, setType] = useState('password');;
 
     const handleToggle = () => {
 		if (type==='password'){

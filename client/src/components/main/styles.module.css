@@ -109,6 +109,29 @@ body {
 	line-height: normal;
 }
 
+.edit_btn {
+    background: var(--accent-color);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+	justify-content: center;
+    margin-top: 40px;
+	margin-left: 500px;
+	font-family: Poppins;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.edit_btn:hover {
+    background: #44327f;
+    box-shadow: 0 2px 8px rgba(89,65,169,0.10);
+}
+
 .box {
 	background-color:#44327f;
 	border-radius: 10px;
@@ -164,7 +187,7 @@ body {
 	align-items: center;
 	justify-content: center;
 	padding-top: 50px;
-	box-shadow: 0 0 200px rgba(0, 0, 0, 0.8);
+	box-shadow: 0 8px 32px rgba(89,65,169,0.2), 0 1.5px 4px rgba(0,0,0,0.5);
 	animation: popup 0.5s;
 	transition: opacity 0.3s, transform 0.3s;
     opacity: 1;
@@ -194,19 +217,92 @@ body {
 	cursor: pointer;
 }
 
+.close:hover {
+    color: #d32f2f;
+}
+
 .notification {
-    background: #4caf50;
+    background: var(--accent-color);
     color: #fff;
     padding: 10px 20px;
     border-radius: 4px;
+	margin-top: 10px;
     margin-bottom: 16px;
     text-align: center;
-    animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s, fadeOut 0.3s 2.2s forwards;
+	transition: all 0.3s ease-in-out;
+	position: fixed;
+	bottom: 0
+}
+
+.dropdownRow {
+    background: #f9f9f9;
+    transition: all 0.3s;
+    padding: 0;
+}
+
+.dropdownContent {
+    animation: dropdownFade 0.3s;
+    padding: 16px 80px;
+}
+
+.passwordTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  background: #fff;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.passwordTable th, .passwordTable td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  font-size: 16px;
+}
+
+.passwordTable th {
+  background: #f5f5f5;
+  font-weight: 600;
+  color: #333;
+}
+
+.passwordTable tr:last-child td {
+  border-bottom: none;
+}
+
+.passwordTable tr:hover {
+  background: #f0f7ff;
+  transition: background 0.2s;
+}
+
+.passwordList h2 {
+	font-size: 42px;
+	font-weight: 800;
+	color: #333;
+	margin-bottom: 16px;
+	text-align: left;
+}
+
+.passwordList p {
+	text-align: left;
+}
+
+@keyframes dropdownFade {
+    from { opacity: 0; transform: translateY(-10px);}
+    to { opacity: 1; transform: translateY(0);}
 }
 
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
 
 @keyframes popup {
@@ -223,4 +319,193 @@ body {
 
 .popup:hover {
 	transform: translate(-50%, -50%) scale(1.01)
+}
+
+.save_btn, .cancel_btn {
+    min-width: 90px;
+    padding: 8px 0;
+    margin: 10px 8px 0 0;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.save_btn {
+    background: var(--accent-color);
+    color: #fff;
+}
+.save_btn:hover {
+    background: #483487;
+}
+
+.cancel_btn {
+    background: var(--alt-text-color);
+    color: #fff;
+}
+.cancel_btn:hover {
+    background: #252020;
+}
+
+.error_message {
+    color: #d32f2f;
+    background: #fff0f0;
+    border: 1px solid #f8bdbd;
+    border-radius: 5px;
+    padding: 7px 12px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+}
+
+.inputWrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.inputWithIcon {
+    width: 100%;
+    padding-right: 38px;
+    box-sizing: border-box;
+}
+
+.eyeBtnNew {
+    position: absolute;
+    right: 120px;
+    top: 46%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.eyeBtnEdit {
+    position: absolute;
+    right: -10px;
+    top: -5px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown_password_wrapper {
+    position: relative;
+    display: inline-block;
+    margin-left: 0px;
+}
+
+.dropdown_password_input {
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    color: #333;
+    width: 50px;
+    outline: none;
+	font-family: Poppins;
+}
+
+.dropdown_eye_btn {
+    position: relative;
+    right: 0;
+    top: 5px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 430px) {
+  .container {
+    flex-direction: column;
+    padding: 0 2vw;
+  }
+  .sidebar {
+    width: 100%;
+    min-width: 0;
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+    padding: 10px 0 8px 0;
+    font-size: 16px;
+  }
+  .content {
+    width: 100%;
+    padding: 0 2px;
+  }
+  .navbar {
+    flex-direction: column;
+    gap: 8px;
+    position: static;
+    width: 100%;
+    margin-top: 10px;
+    padding: 0 2px;
+  }
+  .passwordList {
+    width: 100%;
+    padding: 0;
+  }
+  .passwordTable {
+    width: 100%;
+    font-size: 13px;
+  }
+  .passwordRow {
+    padding: 10px 4px !important;
+    font-size: 13px !important;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .dropdownContent {
+    font-size: 12px;
+    padding: 6px 0;
+  }
+  .popup {
+    width: 98vw !important;
+    min-width: 0 !important;
+    max-width: 100vw;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 2vw 0 2vw !important;
+    height: auto !important;
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+  .input, .inputWithIcon {
+    font-size: 13px !important;
+    height: 34px !important;
+    padding: 0.5em !important;
+  }
+  .inputWrapper, .inputWrapperDropdown {
+    width: 100%;
+  }
+  .dropdown_password_input {
+    min-width: 0 !important;
+    width: 100% !important;
+    font-size: 13px !important;
+  }
+  .edit_btn, .delete_btn, .save_btn, .cancel_btn, .white_btn, .new_btn {
+    font-size: 13px !important;
+    padding: 6px 8px !important;
+    min-width: 50px;
+  }
+  .close {
+    right: 8px !important;
+    top: 8px !important;
+    font-size: 20px !important;
+  }
 }

@@ -4,13 +4,22 @@ const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const passwordComplexity = require('joi-password-complexity');
 
+const passwordItemSchema = new mongoose.Schema({
+    title: { type: String, required: true },
+    username: { type: String, required: true },
+    password: { type: String, required: true },
+    iv: { type: String },
+    url: { type: String },
+    _id: { type: mongoose.Schema.Types.ObjectId, auto: true } // Add _id field for each password item
+});
+
 const passwordSchema = new mongoose.Schema({
     userEmail: {
         type: String,
         required: true,
     },
     passwords: {
-        type: [Object],
+        type: [passwordItemSchema],
         required: true
     },
 });

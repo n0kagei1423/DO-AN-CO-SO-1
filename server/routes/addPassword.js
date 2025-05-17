@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const { User } = require('../models/user');
-const bcrypt = require('bcrypt');
+const { encrypt, decrypt } = require("../utils/crypto/EncryptionHandler")
 const dotenv = require("dotenv");
 const Joi = require("joi");
+const mongoose = require('mongoose');
 const { Passwords } = require('../models/passwords');
 dotenv.config({ path: "./database/.env" });
 
@@ -16,33 +17,41 @@ router.post('/', async (req, res) => {
         if (!user) {
             return res.status(404).send({ message: 'User not found' });
         }
-        const salt = await bcrypt.genSalt(Number(process.env.SALT));
-        const hashPassword = await bcrypt.hash(req.body.passwords.password, salt);
+        const encryptedPassword = encrypt(req.body.passwords.password);
 
-        const result = await Passwords.findOneAndUpdate(
-            {
-                userEmail: req.body.userEmail,
-                "passwords.title": req.body.passwords.title
-            },
-            {
-                $set: {
-                    "passwords.$.username": req.body.passwords.username,
-                    "passwords.$.password": hashPassword,
-                    "passwords.$.url": req.body.passwords.url
-                }
-            },
-            { new: true }
-        );
+        if (req.body.passwords._id) {
+            const passwordId = new mongoose.Types.ObjectId(req.body.passwords._id);
 
-        if (!result) {
+            const result = await Passwords.findOneAndUpdate(
+                {
+                    userEmail: req.body.userEmail,
+                    "passwords._id": passwordId
+                },
+                {
+                    $set: {
+                        "passwords.$.title": req.body.passwords.title,
+                        "passwords.$.username": req.body.passwords.username,
+                        "passwords.$.password": encryptedPassword.password,
+                        "passwords.$.iv": encryptedPassword.iv,
+                        "passwords.$.url": req.body.passwords.url
+                    }
+                },
+                { new: true }
+            );
+            if (!result) {
+                return res.status(404).send({ message: "Password not found for update" });
+            }
+        } else {
             await Passwords.findOneAndUpdate(
                 { userEmail: req.body.userEmail },
                 {
                     $push: {
                         passwords: {
+                            _id: new mongoose.Types.ObjectId(),
                             title: req.body.passwords.title,
                             username: req.body.passwords.username,
-                            password: hashPassword,
+                            password: encryptedPassword.password,
+                            iv: encryptedPassword.iv,
                             url: req.body.passwords.url
                         }
                     }
@@ -63,6 +72,7 @@ const validate = (data) => {
     const schema = Joi.object({
         userEmail: Joi.string().email().required().label("Email"),
         passwords: Joi.object({
+            _id: Joi.string().optional(),
             title: Joi.string().required().label("Title"),
             username: Joi.string().required().label("Username"),
             password: Joi.string().required().label("Password"),
